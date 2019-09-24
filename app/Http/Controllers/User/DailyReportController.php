@@ -30,7 +30,7 @@ class DailyReportController extends Controller
        
         if (!empty($request->month)) {
             $month = $request->month;
-            $reports = $this->instance->where('reporting_time','LIKE',"%{$month}%")->orderBy('reporting_time', 'desc')->get();
+            $reports = $this->instance->where('reporting_time', 'LIKE', '%'.$month.'%')->orderBy('reporting_time', 'desc')->get();
             
             return view('user.daily_report.index',compact('reports'));
         }
