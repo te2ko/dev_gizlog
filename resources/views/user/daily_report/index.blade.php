@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
     {!! Form::open(['rpute' => 'daily_report.index', 'method' => 'GET']) !!}
-      {!! Form::input('month','month',null,['class' => 'form-control']) !!}
+      {!! Form::input('month', 'month', null,['class' => 'form-control']) !!}
       {!! Form::button('<i class="fa fa-search"></i>',['class' => 'btn btn-danger', 'type' => 'submit']) !!}
     {!! Form::close() !!}
     <a class="btn btn-icon" href="{{route('daily_report.create')}}"><i class="fa fa-plus"></i></a>
