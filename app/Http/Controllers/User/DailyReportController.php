@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Auth;
 use Carbon\Carbon;
+use App\Http\Requests\User\DailyReportRequest;
 
 class DailyReportController extends Controller
 {
@@ -53,15 +54,9 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
-        $request->validate([
-            'reporting_time' => 'required|before_or_equal:now',
-            'title' => 'required|max:30',
-            'content' => 'required|max:1000',
-        ]);
-
-        $input = $request->all();
+        $input = $request->validated();
         $input['user_id'] = Auth::id();
         DailyReport::create($input);
         return redirect()->route('daily_report.index');

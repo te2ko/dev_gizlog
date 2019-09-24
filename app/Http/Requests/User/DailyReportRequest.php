@@ -23,12 +23,11 @@ class DailyReportRequest extends FormRequest
      */
     public function rules()
     {
-        //
-    }
-  
-    public function messages()
-    {
-        //
+        return [
+            'reporting_time' => 'required|before_or_equal:now',
+            'title' => 'required|max:30',
+            'content' => 'required|max:1000',
+        ];
     }
 }
 
