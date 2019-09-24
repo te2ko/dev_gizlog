@@ -72,12 +72,7 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $report = $this->instance->find($id);
-
-        $dayOfTheWeek = ['Sun','Man','Tue','Wed','Thu','Fri','Sat'];
-        $week = $report->reporting_time->format('w');
-        $w = $dayOfTheWeek[$week];
-
-        return view('user.daily_report.show', compact('report','w'));
+        return view('user.daily_report.show', compact('report'));
     }
 
     /**
