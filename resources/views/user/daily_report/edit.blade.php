@@ -11,14 +11,12 @@
         <span class="help-block">{{ $errors->first('reporting_time') }}</span>
       @endif
     </div>
-
     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
       {!! Form::input('text','title', $report->title,['class' => 'form-control', 'placeholder' => 'Title']) !!}
       @if ($errors->has('title'))
         <span class="help-block">{{ $errors->first('title') }}</span>
       @endif
     </div>
-
     <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
       {!! Form::textarea('content',$report->content,['class' => 'form-control','placeholder' => 'Content']) !!}
       @if ($errors->has('content'))
