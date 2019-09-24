@@ -22,7 +22,7 @@ return [
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
     'array'                => 'The :attribute must be an array.',
     'before'               => 'The :attribute must be a date before :date.',
-    'before_or_equal'      => '今日より前の日付にしてください',
+    'before_or_equal'      => ':attributeは、本日以前の日付をご利用ください。',
     'between'              => [
         'numeric' => 'The :attribute must be between :min and :max.',
         'file'    => 'The :attribute must be between :min and :max kilobytes.',
@@ -77,7 +77,7 @@ return [
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => 'The :attribute may not be greater than :max characters.',
+        'string'  => ':max以下の数字で入力してください。',
         'array'   => 'The :attribute may not have more than :max items.',
     ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
@@ -141,6 +141,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'reporting_time' => '日付の入力',
+        ''
+    ],
 
 ];
