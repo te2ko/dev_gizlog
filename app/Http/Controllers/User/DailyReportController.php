@@ -94,15 +94,9 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
-        $request->validate([
-            'reporting_time' => 'required|before_or_equal:now',
-            'title' => 'required|max:30',
-            'content' => 'required|max:1000',
-        ]);
-
-        $updateReport = $request->all();
+        $updateReport = $request->validated();
         $this->instance->find($id)->fill($updateReport)->save();
         return redirect()->route('daily_report.index');
     }
