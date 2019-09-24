@@ -11,11 +11,12 @@ use App\Http\Requests\User\DailyReportRequest;
 
 class DailyReportController extends Controller
 {
-    
+    private $instance;
 
     public function __construct(DailyReport $instanceClass)
     {
         $this->middleware('auth');
+        $this->instance = $instanceClass;
     }
 
 
@@ -29,12 +30,12 @@ class DailyReportController extends Controller
        
         if (!empty($request->month)) {
             $month = $request->month;
-            $reports = DailyReport::where('reporting_time','LIKE',"%{$month}%")->orderBy('reporting_time', 'desc')->get();
+            $reports = $this->instance->where('reporting_time','LIKE',"%{$month}%")->orderBy('reporting_time', 'desc')->get();
             
             return view('user.daily_report.index',compact('reports'));
         }
 
-        $reports = DailyReport::orderBy('reporting_time', 'desc')->get();
+        $reports = $this->instance->orderBy('reporting_time', 'desc')->get();
         return view('user.daily_report.index',compact('reports'));
     }
 
@@ -58,7 +59,7 @@ class DailyReportController extends Controller
     {
         $input = $request->validated();
         $input['user_id'] = Auth::id();
-        DailyReport::create($input);
+        $this->instance->create($input);
         return redirect()->route('daily_report.index');
     }
 
@@ -70,7 +71,7 @@ class DailyReportController extends Controller
      */
     public function show($id)
     {
-        $report = DailyReport::find($id);
+        $report = $this->instance->find($id);
 
         $dayOfTheWeek = ['Sun','Man','Tue','Wed','Thu','Fri','Sat'];
         $week = $report->reporting_time->format('w');
@@ -87,7 +88,7 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
-        $report = DailyReport::find($id);
+        $report = $this->instance->find($id);
         return view('user.daily_report.edit',compact('report'));
     }
 
@@ -107,7 +108,7 @@ class DailyReportController extends Controller
         ]);
 
         $updateReport = $request->all();
-        DailyReport::find($id)->fill($updateReport)->save();
+        $this->instance->find($id)->fill($updateReport)->save();
         return redirect()->route('daily_report.index');
     }
 
@@ -119,7 +120,7 @@ class DailyReportController extends Controller
      */
     public function destroy($id)
     {
-        DailyReport::find($id)->delete();
+        $this->instance->find($id)->delete();
         return redirect()->route('daily_report.index');
     }
 }
