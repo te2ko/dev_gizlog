@@ -6,7 +6,7 @@
  <div class="container">
     {!! Form::open(['route' => 'daily_report.store']) !!}
     <div class="form-group form-size-small{{ $errors->has('reporting_time') ? ' has-error' : '' }}">
-      {!! Form::input('date','reporting_time', null,['required', 'class' => 'form-control']) !!}
+      {!! Form::input('date','reporting_time', Carbon::now()->format('Y-m-d'),['required', 'class' => 'form-control']) !!}
       @if ($errors->has('reporting_time'))
         <span class="help-block">{{ $errors->first('title') }}</span>
       @endif

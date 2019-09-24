@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Auth;
+use Carbon\Carbon;
 
 class DailyReportController extends Controller
 {
@@ -31,7 +32,7 @@ class DailyReportController extends Controller
             
             return view('user.daily_report.index',compact('reports'));
         }
-        
+
         $reports = DailyReport::orderBy('reporting_time', 'desc')->get();
         return view('user.daily_report.index',compact('reports'));
     }
