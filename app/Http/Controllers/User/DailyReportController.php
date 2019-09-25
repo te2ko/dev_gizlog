@@ -36,7 +36,7 @@ class DailyReportController extends Controller
         }
 
         $reports = $this->instance->orderBy('reporting_time', 'desc')->get();
-        return view('user.daily_report.index',compact('reports'));
+        return view('user.daily_report.index', compact('reports'));
     }
 
     /**
@@ -84,7 +84,7 @@ class DailyReportController extends Controller
     public function edit($id)
     {
         $report = $this->instance->find($id);
-        return view('user.daily_report.edit',compact('report'));
+        return view('user.daily_report.edit', compact('report'));
     }
 
     /**
