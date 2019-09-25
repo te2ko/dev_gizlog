@@ -8,6 +8,7 @@ use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\User\DailyReportRequest;
+use Illuminate\Support\Str;
 
 class DailyReportController extends Controller
 {
