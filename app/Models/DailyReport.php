@@ -15,8 +15,14 @@ class DailyReport extends Model
         'content',
         'user_id',
     ];
+    
     protected $dates = [
         'reporting_time',
         'deleted_at,'
     ];
+
+    public function getReportForTheMonth($month)
+    {
+        return where('reporting_time', 'LIKE', '%'.$month.'%')->orderBy('reporting_time', 'desc')->get();
+    }
 }
