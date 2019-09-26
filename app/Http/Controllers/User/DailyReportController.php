@@ -31,7 +31,7 @@ class DailyReportController extends Controller
        
         if (!empty($request->month)) {
             $month = $request->month;
-            $reports = $this->instance->where('reporting_time', 'LIKE', '%'.$month.'%')->orderBy('reporting_time', 'desc')->get();
+            $reports = $this->$instance->getReportForTheMonth($month);
             
             return view('user.daily_report.index',compact('reports'));
         }
@@ -58,6 +58,7 @@ class DailyReportController extends Controller
      */
     public function store(DailyReportRequest $request)
     {
+        dd($request->title);
         $input = $request->validated();
         $input['user_id'] = Auth::id();
         $this->instance->create($input);
