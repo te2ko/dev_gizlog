@@ -22,7 +22,7 @@ class DailyReport extends Model
         'deleted_at,'
     ];
 
-    public function scopeGetSelectReports($query, $request)
+    public function scopegetSelectReports($query, $request)
     {
         if (!empty($request->month)) {
             $month = $request->month;
@@ -30,7 +30,7 @@ class DailyReport extends Model
         }
     }
 
-    public function scopeGetreports($query)
+    public function scopegetreports($query)
     {
         return $query->where('user_id', Auth::id())->orderBy('reporting_time', 'desc');
     }
