@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\User\DailyReportRequest;
+use App\Http\Requests\User\DailyReportindex;
+
 
 class DailyReportController extends Controller
 {
@@ -24,9 +26,10 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {   
-        $reports = $this->dailyReport->getSelectReports($request)->getReports()->get();
+    public function index(DailyReportindex $request)
+    {  
+        $month = $request->month;
+        $reports = $this->dailyReport->getSelectReports($month)->getReports()->get();
         return view('user.daily_report.index', compact('reports'));
     }
 
@@ -81,7 +84,7 @@ class DailyReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\User\DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

@@ -9,6 +9,11 @@
       {!! Form::button('<i class="fa fa-search"></i>',['class' => 'btn btn-danger', 'type' => 'submit']) !!}
     {!! Form::close() !!}
     <a class="btn btn-icon" href="{{route('daily_report.create')}}"><i class="fa fa-plus"></i></a>
+    <div class="form-group{{ $errors->has('month') ? ' has-error' : '' }}">
+      @if ($errors->has('month'))
+        <span class="help-block">{{ $errors->first('month') }}</span>
+      @endif
+    </div>
   </div>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">

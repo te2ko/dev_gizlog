@@ -22,10 +22,9 @@ class DailyReport extends Model
         'deleted_at,'
     ];
 
-    public function scopegetSelectReports($query, $request)
+    public function scopegetSelectReports($query, $month)
     {
-        if (!empty($request->month)) {
-            $month = $request->month;
+        if (!empty($month)) {
             return $query->where('reporting_time', 'LIKE', '%'.$month.'%');
         }
     }
