@@ -1,7 +1,7 @@
 @extends ('common.user')
 @section ('content')
 
-<h2 class="brand-header">日報編集</h2>
+<h1 class="brand-header">日報編集</h1>
 <div class="main-wrap">
  <div class="container">
   {!! Form::open(['route' => ['daily_report.update', $report->id], 'method' => 'PUT']) !!}
