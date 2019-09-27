@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class DailyReport extends Model
 {
@@ -21,8 +22,16 @@ class DailyReport extends Model
         'deleted_at,'
     ];
 
-    public function getReportForTheMonth($month)
+    public function scopeGetSelectReports($query, $request)
     {
-        return where('reporting_time', 'LIKE', '%'.$month.'%')->orderBy('reporting_time', 'desc')->get();
+        if (!empty($request->month)) {
+            $month = $request->month;
+            return $query->where('reporting_time', 'LIKE', '%'.$month.'%');
+        }
+    }
+
+    public function scopeGetreports($query)
+    {
+        return $query->where('user_id', Auth::id())->orderBy('reporting_time', 'desc');
     }
 }

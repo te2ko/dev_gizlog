@@ -18,7 +18,7 @@
       @endif
     </div>
     <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-      {!! Form::textarea('content',$report->content, ['class' => 'form-control','placeholder' => 'Content']) !!}
+      {!! Form::textarea('content',$report->content, ['class' => 'form-control', 'placeholder' => 'Content']) !!}
       @if ($errors->has('content'))
         <span class="help-block">{{ $errors->first('content') }}</span>
       @endif
