@@ -19,8 +19,8 @@ class CreateDailyReportsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->date('reporting_time');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
