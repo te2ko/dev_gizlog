@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
+
 
 class DailyReport extends Model
 {
@@ -29,8 +29,8 @@ class DailyReport extends Model
         }
     }
 
-    public function scopegetreports($query)
+    public function scopegetreports($query, $userId)
     {
-        return $query->where('user_id', Auth::id())->orderBy('reporting_time', 'desc');
+        return $query->where('user_id', $userId)->orderBy('reporting_time', 'desc');
     }
 }

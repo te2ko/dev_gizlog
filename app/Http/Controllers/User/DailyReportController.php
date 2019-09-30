@@ -29,7 +29,8 @@ class DailyReportController extends Controller
     public function index(DailyReportindex $request)
     {  
         $month = $request->month;
-        $reports = $this->dailyReport->getSelectReports($month)->getReports()->get();
+        $userId = Auth::id();
+        $reports = $this->dailyReport->getSelectReports($month)->getReports($userId)->get();
         return view('user.daily_report.index', compact('reports'));
     }
 
