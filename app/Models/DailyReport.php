@@ -22,14 +22,14 @@ class DailyReport extends Model
         'deleted_at,'
     ];
 
-    public function scopegetSelectReports($query, $month)
+    public function scopeGetSelectReports($query, $month)
     {
         if (!empty($month)) {
             return $query->where('reporting_time', 'LIKE', '%'.$month.'%');
         }
     }
 
-    public function scopegetreports($query, $userId)
+    public function scopeUserReports($query, $userId)
     {
         return $query->where('user_id', $userId)->orderBy('reporting_time', 'desc');
     }
