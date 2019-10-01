@@ -30,7 +30,7 @@ class DailyReportController extends Controller
     {  
         $month = $request->month;
         $userId = Auth::id();
-        $reports = $this->dailyReport->getSelectReports($month)->userReports($userId)->get();
+        $reports = $this->dailyReport->whereReportingTime($month)->userReports($userId)->get();
         return view('user.daily_report.index', compact('reports'));
     }
 
