@@ -40,7 +40,9 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
-    Route::get('question', 'QuestionController@index')->name('question.index');
+    Route::get('question', 'QuestionController@index')->name('question.index')->middlewaew('auth');
+    Route::get('question/create', 'QuestionController@create')->name('question.create')->middlewaew('auth');
+    Route::post('question/store', 'questionController@store')->name('question.store')->middlewaew('auth');
 
     Route::resource('report', DailyReportController::class);
 
