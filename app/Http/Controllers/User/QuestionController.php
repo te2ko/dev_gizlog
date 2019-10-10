@@ -36,14 +36,13 @@ class QuestionController extends Controller
 
         $searchId = $request->category_id;
         $searchWord = $request->search_word;
-        
+        $word = '';
+
         if (isset($searchWord)) {
-            $request->session()->put('word', $searchWord);
-        }else{
-            $request->session()->forget('word');
+            $word = $searchWord;
         }
-        
-        $word = $request->session()->get('word');
+
+        $request->session()->forget('word');
 
         $categoryId = $this->category->all();
 
@@ -71,7 +70,7 @@ class QuestionController extends Controller
     public function confirm(QuestionsRequest $request)
     {   
         $input = $request->all();
-        dd($input);
+
         $input['user_id'] = Auth::id();
         $categoryName = $this->category->find($input['tag_category_id'])->name;
         
