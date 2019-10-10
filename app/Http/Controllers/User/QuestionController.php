@@ -32,12 +32,8 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $searchId = $request->category_id;
-        $searchWord = $request->search_word;
-        $word = '';
-
-        if (isset($searchWord)) {
-            $word = $searchWord;
-        }
+        $word = $request->search_word;
+        
 
         $request->session()->forget('word');
 
