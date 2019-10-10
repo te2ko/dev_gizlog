@@ -29,11 +29,8 @@ class QuestionController extends Controller
         $this->comment = $comment;
     }
 
-
-
     public function index(Request $request)
     {
-
         $searchId = $request->category_id;
         $searchWord = $request->search_word;
         $word = '';
@@ -48,7 +45,7 @@ class QuestionController extends Controller
 
         $listInfos = $this->question->fetchQuestionForList()
                                     ->searchWord($word)
-                                    ->CategorySearch($searchId)
+                                    ->categorySearch($searchId)
                                     ->get();
     
         return view('user.question.index', compact('listInfos', 'categoryId', 'word'));
@@ -61,7 +58,6 @@ class QuestionController extends Controller
 
     public function edit($questionId)
     {
-        
         $input = $this->question->find($questionId);
 
         return view('user.question.edit', compact('input', 'questionId'));
@@ -88,7 +84,6 @@ class QuestionController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $input = $request->all();
 
         $this->question->find($id)->fill($input)->save();
@@ -100,15 +95,14 @@ class QuestionController extends Controller
     {
         $userId = Auth::id();
 
-        $info         = $this->question->UsersQuestionInfo($questionId)
+        $info         = $this->question->usersQuestionInfo($questionId)
                                        ->first();
 
-        $commentInfos = $this->comment->FetchComments($questionId)
+        $commentInfos = $this->comment->fetchComments($questionId)
                                       ->get();
 
-        $categoryName = $this->question->PostCommentInfo($questionId)
+        $categoryName = $this->question->postCommentInfo($questionId)
                                        ->first();
-
 
         $avatar = User::find($userId)->avatar;
         return view('user.question.show', compact('info','userId', 'categoryName', 'commentInfos', 'avatar'));
@@ -116,7 +110,6 @@ class QuestionController extends Controller
 
     public function commentCreate(CommentRequest $request)
     {
-
         $input = $request->all();
         $questionId = $input['question_id'];
 
