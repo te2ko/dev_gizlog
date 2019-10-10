@@ -18,24 +18,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row">
-          <td class="col-xs-2"></td>
-          <td class="col-xs-1"></td>
-          <td class="col-xs-5"></td>
-          <td class="col-xs-2"><span class="point-color"></span></td>
-          <td class="col-xs-1">
-            <a class="btn btn-success" href="">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-          </td>
-          <td class="col-xs-1">
-            <form>
-              <button class="btn btn-danger" type="submit">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-              </button>
-            </form>
-          </td>
-        </tr>
+        @foreach ($questionInfos as $info)
+          <tr class="row">
+            <td class="col-xs-2">{{ $info->created_at->format('Y-m-d') }}</td>
+            <td class="col-xs-1">{{ $info->name }}</td>
+            <td class="col-xs-5">{{ $info->title }}</td>
+            <td class="col-xs-2"><span class="point-color">{{ $info->count }}</span></td>
+            <td class="col-xs-1">
+              <a class="btn btn-success" href="{{ route('question.edit', ['id' => $info->id]) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+            </td>
+            <td class="col-xs-1">
+              {!! Form::open(['route' => ['question.destroy', $info->id]]) !!}
+                <button class="btn btn-danger" type="submit">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              {!! Form::close() !!}
+            </td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
