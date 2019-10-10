@@ -91,8 +91,8 @@ class QuestionController extends Controller
     {
         $userId = Auth::id();
 
-        $info         = $this->question->usersQuestionInfo($questionId)
-                                       ->first();
+        $info = $this->question->usersQuestionInfo($questionId)
+                               ->first();
 
         $commentInfos = $this->comment->fetchComments($questionId)
                                       ->get();
@@ -100,7 +100,8 @@ class QuestionController extends Controller
         $categoryName = $this->question->postCommentInfo($questionId)
                                        ->first();
 
-        $avatar = User::find($userId)->avatar;
+        $avatar = Auth::user()->avatar;
+
         return view('user.question.show', compact('info','userId', 'categoryName', 'commentInfos', 'avatar'));
     }
 
