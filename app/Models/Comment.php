@@ -18,6 +18,6 @@ class Comment extends Model
                      ->join('questions', 'comments.question_id', '=', 'questions.id')
                      ->where('questions.id', '=', $questionId)
                      ->select('users.name', 'users.avatar', 'comments.comment', 'comments.created_at')
-                     ->orderBy('comments.created_at', 'desc');
+                     ->orderBy('comments.created_at', 'asc');
     }
 }
