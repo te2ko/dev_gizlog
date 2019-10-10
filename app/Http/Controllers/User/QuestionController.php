@@ -21,12 +21,12 @@ class QuestionController extends Controller
     protected $category;
     protected $comment;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->middleware('auth');
         $this->question = $question;
-        $this->category = new TagCategory;
-        $this->comment = new Comment;
+        $this->category = $tagCategory;
+        $this->comment = $comment;
     }
 
 
