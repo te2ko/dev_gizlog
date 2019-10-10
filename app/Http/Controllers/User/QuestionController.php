@@ -117,7 +117,7 @@ class QuestionController extends Controller
 
     public function commentCreate(CommentRequest $request)
     {
-        dd($request);
+
         $input = $request->all();
         $questionId = $input['question_id'];
 
