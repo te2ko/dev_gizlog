@@ -22,8 +22,11 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    @if ($input['confirm'] === 'create'){!! Form::open(['route' => 'question.store']) !!}@endif
-    @if ($input['confirm'] === 'update'){!! Form::open(['route' => ['question.update', $input['questionId']]]) !!}@endif
+    @if ($input['confirm'] === 'update')
+      {!! Form::open(['route' => ['question.update', $input['questionId']]]) !!}
+    @else
+      {!! Form::open(['route' => 'question.store']) !!}
+    @endif
       <input name="user_id" type="hidden" value="{{ $input['user_id'] }}">
       <input name="tag_category_id" type="hidden" value="{{ $input['tag_category_id'] }}">
       <input name="title" type="hidden" value="{{ $input['title'] }}">
