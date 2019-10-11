@@ -30,7 +30,7 @@ class CommentRequest extends FormRequest
 
     public function messages()
     {
-        return[
+        return [
             'required' => '入力必須項目です。',
         ];
     }

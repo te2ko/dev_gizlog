@@ -30,7 +30,7 @@ class Question extends Model
 
     public function scopePostCommentInfo($query, $questionId)
     {
-        return $query->join('tag_categories','questions.tag_category_id', '=', 'tag_categories.id')
+        return $query->join('tag_categories', 'questions.tag_category_id', '=', 'tag_categories.id')
                      ->select('tag_categories.name')
                      ->where('questions.id', '=', $questionId);
     }
@@ -51,13 +51,13 @@ class Question extends Model
                      ->groupBy('comments.question_id', 'questions.id', 'questions.title', 'questions.user_id', 'questions.created_at', 'tag_categories.name')
                      ->orderby('created_at', 'asc');
     }
-   
+
     public function scopeFetchQuestionForList($query)
     {
         return $query->join('users as u', 'questions.user_id', '=', 'u.id')
                      ->join('tag_categories as t', 'questions.tag_category_id', '=', 't.id')
                      ->leftjoin('comments as c', 'questions.id', '=', 'c.question_id')
-                     ->select(DB::raw('count(c.question_id) as count'), 'u.avatar', 't.name', 'questions.title', 'questions.id','questions.created_at')
+                     ->select(DB::raw('count(c.question_id) as count'), 'u.avatar', 't.name', 'questions.title', 'questions.id', 'questions.created_at')
                      ->groupBy('c.question_id', 'u.avatar', 't.name', 'questions.title', 'questions.id', 'questions.created_at')
                      ->orderby('created_at', 'desc');
     }
@@ -80,7 +80,6 @@ class Question extends Model
 
             case 4:
                     return $query->having('t.name', '=', 'others');
-
         }
     }
 }
