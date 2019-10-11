@@ -17,7 +17,7 @@
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{!! nl2rb(e($info->content)) !!}</td>
+            <td class='td-text'>{!! nl2br(e($info->content)) !!}</td>
           </tr>
         </tbody>
       </table>
@@ -37,10 +37,10 @@
     @endforeach
   <div class="comment-box">
     {!! Form::open(['route' => 'question.commentcreate']) !!}
-      <input name="user_id" type="hidden" value="{{ $userId }}">
+      <input name="user_id" type="hidden" value="{{ $user->id }}">
       <input name="question_id" type="hidden" value="{{ $info->question_id }}">
       <div class="comment-title">
-        <img src="{{ $avatar ? $avatar : 'https://www.u-stat.net/images/site_img/pimg.png'}}" class="avatar-img"><p>コメントを投稿する</p>
+        <img src="{{ $user->avatar ? $user->avatar : 'https://www.u-stat.net/images/site_img/pimg.png'}}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
       <div class="comment-body {{ !empty($errors->first('comment')) ? 'has-error' : '' }}">
         <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
