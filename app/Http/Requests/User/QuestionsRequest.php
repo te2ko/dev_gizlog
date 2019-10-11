@@ -25,7 +25,7 @@ class QuestionsRequest extends FormRequest
     {
         return [
             'tag_category_id' => 'required',
-            'title' => 'required|max:50',
+            'title' => 'required|max:100',
             'content' => 'required|max:1000'
          ];
     }
@@ -34,7 +34,7 @@ class QuestionsRequest extends FormRequest
     {
         return [
             'required' => '入力必須項目です。',
-            'title.max' => '50文字以内で入力してください。',
+            'title.max' => '100文字以内で入力してください。',
             'content.max' => '1000文字以内で入力してください。'
         ];
     }
