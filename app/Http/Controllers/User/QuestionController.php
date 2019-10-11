@@ -29,6 +29,10 @@ class QuestionController extends Controller
         $this->comment = $comment;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $searchId = $request->category_id;
@@ -47,11 +51,18 @@ class QuestionController extends Controller
         return view('user.question.index', compact('listInfos', 'categoryId', 'word'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('user.question.create');
     }
 
+    /**
+     * @param int $questionId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($questionId)
     {
         $input = $this->question->find($questionId);
@@ -59,6 +70,10 @@ class QuestionController extends Controller
         return view('user.question.edit', compact('input', 'questionId'));
     }
 
+    /**
+     * @param QuestionRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function confirm(QuestionsRequest $request)
     {   
         $input = $request->all();
@@ -69,6 +84,10 @@ class QuestionController extends Controller
         return view('user.question.confirm', compact('input', 'categoryName'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $inputs = $request->all();
@@ -78,6 +97,11 @@ class QuestionController extends Controller
         return redirect()->route('question.index');
     }
 
+     /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         $input = $request->all();
@@ -87,6 +111,11 @@ class QuestionController extends Controller
         return redirect()->route('question.index');
     }
 
+     /**
+     * @param Request $request
+     * @param int $questionId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Request $request, $questionId)
     {
         $userId = Auth::id();
@@ -105,6 +134,10 @@ class QuestionController extends Controller
         return view('user.question.show', compact('info','userId', 'categoryName', 'commentInfos', 'avatar'));
     }
 
+     /**
+     * @param CommentRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function commentCreate(CommentRequest $request)
     {
         $input = $request->all();
@@ -115,6 +148,9 @@ class QuestionController extends Controller
         return redirect()->route('question.show',$questionId);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function myPage()
     {
         $userId = Auth::id();
@@ -126,6 +162,10 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questionInfos'));
     }
 
+     /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $this->question->find($id)->delete();
