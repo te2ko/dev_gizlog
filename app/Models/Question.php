@@ -64,22 +64,12 @@ class Question extends Model
 
     public function scopeCategorySearch($query, $id)
     {
-        switch ($id) {
-
-            case 0:
-                    return $query;
-
-            case 1:
-                    return $query->having('t.name', '=', 'front');
-
-            case 2:
-                    return $query->having('t.name', '=', 'back');
-
-            case 3:
-                    return $query->having('t.name', '=', 'infra');
-
-            case 4:
-                    return $query->having('t.name', '=', 'others');
-        }
+       if (isset($id)) {
+           return $query->where('t.id', '=', $id);
+       }
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
