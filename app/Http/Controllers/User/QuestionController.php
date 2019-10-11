@@ -33,6 +33,8 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
+        $searchId = $request->category_id;
+        $word = $request->search_word;
         $categoryId = $this->category->all();
         $listInfos = $this->question->fetchQuestionForList()
                                     ->searchWord($word)
@@ -101,15 +103,14 @@ class QuestionController extends Controller
      */
     public function show(Request $request, $questionId)
     {
-        $userId = Auth::id();
+        $user = Auth::user();
         $info = $this->question->usersQuestionInfo($questionId)
                                ->first();
         $commentInfos = $this->comment->fetchComments($questionId)
                                       ->get();
         $categoryName = $this->question->postCommentInfo($questionId)
                                        ->first();
-        $avatar = Auth::user()->avatar;
-        return view('user.question.show', compact('info', 'userId', 'categoryName', 'commentInfos', 'avatar'));
+        return view('user.question.show', compact('info', 'user', 'categoryName', 'commentInfos'));
     }
 
      /**
