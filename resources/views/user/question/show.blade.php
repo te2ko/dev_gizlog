@@ -17,7 +17,7 @@
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $info->content }}</td>
+            <td class='td-text'>{!! nl2rb(e($info->content)) !!}</td>
           </tr>
         </tbody>
       </table>
