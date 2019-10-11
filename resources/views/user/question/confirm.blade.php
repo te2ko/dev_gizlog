@@ -23,7 +23,7 @@
   </div>
   <div class="btn-bottom-wrapper">
     @if ($input['confirm'] === 'update')
-      {!! Form::open(['route' => ['question.update', $input['questionId']]]) !!}
+      {!! Form::open(['route' => ['question.update', $input['questionId']], 'method' => 'PUT']) !!}
     @else
       {!! Form::open(['route' => 'question.store']) !!}
     @endif

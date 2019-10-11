@@ -40,16 +40,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
-    Route::get('question', 'QuestionController@index')->name('question.index')->middleware('auth');
-    Route::get('question/create', 'QuestionController@create')->name('question.create')->middleware('auth');
-    Route::post('question/store', 'QuestionController@store')->name('question.store')->middleware('auth');
     Route::post('question/confim', 'QuestionController@confirm')->name('question.confirm')->middleware('auth');
-    Route::get('question/{id}/show', 'QuestionController@show')->name('question.show')->middleware('auth');
     Route::post('question/commentcreate', 'QuestionController@commentCreate')->name('question.commentcreate')->middleware('auth');
     Route::get('question/mypage', 'QuestionController@myPage')->name('question.mypage')->middleware('auth');
-    Route::get('question/{id}/edit', 'QuestionController@edit')->name('question.edit')->middleware('auth');
-    Route::post('question/{id}/update', 'QuestionController@update')->name('question.update')->middleware('auth');
-    Route::post('question/{id}/destroy', 'QuestionController@destroy')->name('question.destroy')->middleware('auth');
+    Route::resource('question', questionController::class);
     Route::resource('report', DailyReportController::class);
 
 });
