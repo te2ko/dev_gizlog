@@ -119,9 +119,8 @@ class QuestionController extends Controller
     public function commentCreate(CommentRequest $request)
     {
         $input = $request->all();
-        $questionId = $input['question_id'];
         $this->comment->create($input);
-        return redirect()->route('question.show', $questionId);
+        return redirect()->route('question.show', $input['question_id']);
     }
 
     /**
