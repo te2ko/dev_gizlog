@@ -15,10 +15,10 @@ class Question extends Model
     ];
 
     protected $fillable = [
+        'user_id',
         'tag_category_id',
         'title',
         'content',
-        'user_id',
     ];
 
     public function tagCategory()
