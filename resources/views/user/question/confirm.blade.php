@@ -11,26 +11,26 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $input['title'] }}</td>
+            <td class="td-text">{{ $confirmInfo['title'] }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $input['content'] }}</td>
+            <td class='td-text'>{{ $confirmInfo['content'] }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    @if ($input['confirm'] === 'update')
-      {!! Form::open(['route' => ['question.update', $input['questionId']], 'method' => 'PUT']) !!}
+    @if ($confirmInfo['confirm'] === 'update')
+      {!! Form::open(['route' => ['question.update', $confirmInfo['questionId']], 'method' => 'PUT']) !!}
     @else
       {!! Form::open(['route' => 'question.store']) !!}
     @endif
-      <input name="user_id" type="hidden" value="{{ $input['user_id'] }}">
-      <input name="tag_category_id" type="hidden" value="{{ $input['tag_category_id'] }}">
-      <input name="title" type="hidden" value="{{ $input['title'] }}">
-      <input name="content" type="hidden" value="{{ $input['content'] }}">
+      <input name="user_id" type="hidden" value="{{ $confirmInfo['user_id'] }}">
+      <input name="tag_category_id" type="hidden" value="{{ $confirmInfo['tag_category_id'] }}">
+      <input name="title" type="hidden" value="{{ $confirmInfo['title'] }}">
+      <input name="content" type="hidden" value="{{ $confirmInfo['content'] }}">
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>
