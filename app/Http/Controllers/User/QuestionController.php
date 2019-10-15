@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\http\Requests\User\QuestionsRequest;
+use App\http\Requests\User\QuestionRequest;
 use App\http\Requests\User\CommentRequest;
 use App\http\Requests\User\SearchRequest;
 use App\http\Controllers\Controller;
