@@ -4,8 +4,8 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      <img src="{{ $info->avatar ? $info->avatar : 'https://www.u-stat.net/images/site_img/pimg.png' }}" class="avatar-img">
-      <p>{{ $info->name }}&nbsp;さんの質問&nbsp;&nbsp;({{ $categoryName->name }})</p>
+      <img src="{{ $info->user->avatar ? $info->user->avatar : 'https://www.u-stat.net/images/site_img/pimg.png' }}" class="avatar-img">
+      <p>{{ $info->user->name }}&nbsp;さんの質問&nbsp;&nbsp;({{ $categoryName->tagCategory->name }})</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">
@@ -27,7 +27,7 @@
       <div class="comment-list">
           <div class="comment-wrap">
             <div class="comment-title">
-              <img src="{{ $commentInfo->avatar ? $commentInfo->avatar : 'https://www.u-stat.net/images/site_img/pimg.png' }}" class="avatar-img">
+              <img src="{{ $commentInfo->user->avatar ? $commentInfo->user->avatar : 'https://www.u-stat.net/images/site_img/pimg.png' }}" class="avatar-img">
               <p>{{ $commentInfo->name }}</p>
               <p class="comment-date">{{ $commentInfo->created_at }}</p>
             </div>
@@ -38,7 +38,7 @@
   <div class="comment-box">
     {!! Form::open(['route' => 'question.commentcreate']) !!}
       <input name="user_id" type="hidden" value="{{ $user->id }}">
-      <input name="question_id" type="hidden" value="{{ $info->question_id }}">
+      <input name="question_id" type="hidden" value="{{ $info->id }}">
       <div class="comment-title">
         <img src="{{ $user->avatar ? $user->avatar : 'https://www.u-stat.net/images/site_img/pimg.png'}}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
