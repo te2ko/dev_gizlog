@@ -10,7 +10,6 @@ use App\http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Comment;
 use App\Models\TagCategory;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
@@ -66,7 +65,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function confirm(QuestionsRequest $request)
-    {   
+    {
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $categoryName = $this->category->find($input['tag_category_id'])->name;
@@ -97,11 +96,10 @@ class QuestionController extends Controller
     }
 
      /**
-     * @param Request $request
      * @param int $questionId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $questionId)
+    public function show($questionId)
     {
         $user = Auth::user();
         $info = $this->question->usersQuestionInfo($questionId)
