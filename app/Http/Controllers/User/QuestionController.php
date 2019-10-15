@@ -101,12 +101,8 @@ class QuestionController extends Controller
     {
         $user = Auth::user();
         $info = $this->question->find($questionId);
-        $commentInfos = $this->comment->fetchComment($questionId)
-                                      ->get();
-        $categoryName = $this->question->fetchCategory($questionId)
-                                       ->first();
-                                       dd($categoryName);
-        return view('user.question.show', compact('info', 'user', 'categoryName', 'commentInfos'));
+        $commentInfos = $this->comment->fetchComment($questionId)->get();
+        return view('user.question.show', compact('info', 'user', 'commentInfos'));
     }
 
      /**

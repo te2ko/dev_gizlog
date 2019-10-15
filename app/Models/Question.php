@@ -80,10 +80,4 @@ class Question extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function scopeFetchCategory($query, $questionId)
-    {
-        return $query->where('id', $questionId);
-    }
-
 }
