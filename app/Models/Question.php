@@ -21,6 +21,16 @@ class Question extends Model
         'user_id',
     ];
 
+    public function tagCategory()
+    {
+        return $this->belongsTo(TagCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeUsersQuestionInfo($query, $questionId)
     {
         return $query->join('users', 'questions.user_id', '=', 'users.id')
@@ -69,15 +79,5 @@ class Question extends Model
         if (isset($word)) {
             return $query->where('questions.title', 'LIKE', '%'.$word.'%');
         }
-    }
-
-    public function tagCategory()
-    {
-        return $this->belongsTo(TagCategory::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }
