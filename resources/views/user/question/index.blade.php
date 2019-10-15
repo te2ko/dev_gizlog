@@ -20,9 +20,9 @@
       @endif
     </div>
     <div class="category-wrap">
-      <button class="btn all selected" id="0">All</button>
+      <button class="btn all {{ empty($searchId) ? 'selected' : '' }}" id="0">All</button>
       @foreach ($categorys as $category)
-        <button class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</button>
+        <button class="btn {{ $category->name }}@if(!empty($searchId) && $searchId == $category->id) selected @else '' @endif" id="{{ $category->id }}">{{ $category->name }}</button>
       @endforeach
       <input type="hidden" name="category_id" value="" id="category-val">
     </div>

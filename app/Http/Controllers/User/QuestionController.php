@@ -38,7 +38,7 @@ class QuestionController extends Controller
         $categorys = $this->category->all();
         $listInfos = $this->question->fetchQuestionForList($word, $searchId)
                                     ->get();
-        return view('user.question.index', compact('listInfos', 'categorys', 'word'));
+        return view('user.question.index', compact('listInfos', 'categorys', 'word', 'searchId'));
     }
 
     /**
