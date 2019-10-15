@@ -27,19 +27,12 @@ class Question extends Model
                      ->where('questions.id', '=', $questionId)
                      ->select('users.name', 'users.avatar', 'questions.title', 'questions.content', 'questions.id as question_id');
     }
-
+    
     public function scopePostCommentInfo($query, $questionId)
     {
         return $query->join('tag_categories', 'questions.tag_category_id', '=', 'tag_categories.id')
                      ->select('tag_categories.name')
                      ->where('questions.id', '=', $questionId);
-    }
-
-    public function scopeSearchWord($query, $word)
-    {
-        if (isset($word)) {
-            return $query->where('questions.title', 'LIKE', '%'.$word.'%');
-        }
     }
 
     public function scopeFetchMyPage($query, $userId)
@@ -52,14 +45,16 @@ class Question extends Model
                      ->orderby('created_at', 'asc');
     }
 
-    public function scopeFetchQuestionForList($query)
+    public function scopeFetchQuestionForList($query, $word, $searchId)
     {
         return $query->join('users as u', 'questions.user_id', '=', 'u.id')
                      ->join('tag_categories as t', 'questions.tag_category_id', '=', 't.id')
                      ->leftjoin('comments as c', 'questions.id', '=', 'c.question_id')
                      ->select(DB::raw('count(c.question_id) as count'), 'u.avatar', 't.name', 'questions.title', 'questions.id', 'questions.created_at')
                      ->groupBy('c.question_id', 'u.avatar', 't.name', 'questions.title', 'questions.id', 'questions.created_at')
-                     ->orderby('created_at', 'desc');
+                     ->orderby('created_at', 'desc')
+                     ->searchWord($word)
+                     ->categorySearch($searchId);
     }
 
     public function scopeCategorySearch($query, $id)
@@ -68,8 +63,27 @@ class Question extends Model
            return $query->where('t.id', '=', $id);
        }
     }
-    public function comment()
+
+    public function scopeSearchWord($query, $word)
     {
-        return $this->hasMany(Comment::class);
+        if (isset($word)) {
+            return $query->where('questions.title', 'LIKE', '%'.$word.'%');
+        }
     }
+
+    public function tagCategory()
+    {
+        return $this->belongsTo(TagCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeFetchCategory($query, $questionId)
+    {
+        return $query->where('id', $questionId);
+    }
+
 }
