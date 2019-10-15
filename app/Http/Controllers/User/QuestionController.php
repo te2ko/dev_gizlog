@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\http\Requests\User\QuestionsRequest;
 use App\http\Requests\User\CommentRequest;
+use App\http\Requests\User\SearchRequest;
 use App\http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Comment;
@@ -30,16 +31,14 @@ class QuestionController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(SearchRequest $request)
     {
         $searchId = $request->category_id;
         $word = $request->search_word;
-        $categoryId = $this->category->all();
-        $listInfos = $this->question->fetchQuestionForList()
-                                    ->searchWord($word)
-                                    ->categorySearch($searchId)
+        $categorys = $this->category->all();
+        $listInfos = $this->question->fetchQuestionForList($word, $searchId)
                                     ->get();
-        return view('user.question.index', compact('listInfos', 'categoryId', 'word'));
+        return view('user.question.index', compact('listInfos', 'categorys', 'word'));
     }
 
     /**
@@ -102,11 +101,10 @@ class QuestionController extends Controller
     public function show($questionId)
     {
         $user = Auth::user();
-        $info = $this->question->usersQuestionInfo($questionId)
-                               ->first();
-        $commentInfos = $this->comment->fetchComments($questionId)
+        $info = $this->question->find($questionId);
+        $commentInfos = $this->comment->fetchComment($questionId)
                                       ->get();
-        $categoryName = $this->question->postCommentInfo($questionId)
+        $categoryName = $this->question->fetchCategory($questionId)
                                        ->first();
         return view('user.question.show', compact('info', 'user', 'categoryName', 'commentInfos'));
     }
