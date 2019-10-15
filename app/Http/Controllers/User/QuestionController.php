@@ -62,7 +62,7 @@ class QuestionController extends Controller
      * @param QuestionRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function confirm(QuestionsRequest $request)
+    public function confirm(QuestionRequest $request)
     {
         $confirmInfo = $request->all();
         $confirmInfo['user_id'] = Auth::id();
@@ -71,10 +71,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param QuestionRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
         $createInfo = $request->all();
         $this->question->create($createInfo);
@@ -82,11 +82,11 @@ class QuestionController extends Controller
     }
 
      /**
-     * @param Request $request
+     * @param QuestionRequest $request
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(QuestionRequest $request, $id)
     {
         $updateInfo = $request->all();
         $this->question->find($id)->fill($updateInfo)->save();
