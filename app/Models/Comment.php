@@ -20,4 +20,20 @@ class Comment extends Model
                      ->select('users.name', 'users.avatar', 'comments.comment', 'comments.created_at')
                      ->orderBy('comments.created_at', 'asc');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function scopeFetchComment($query, $questionId)
+    {
+        return $query->where('question_id', $questionId)
+                     ->with(['question', 'user']);
+    }
 }
