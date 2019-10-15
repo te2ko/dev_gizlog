@@ -35,10 +35,9 @@ class QuestionController extends Controller
     {
         $searchId = $request->category_id;
         $word = $request->search_word;
-        $categorys = $this->category->all();
-        $listInfos = $this->question->fetchQuestionForList($word, $searchId)
-                                    ->get();
-        return view('user.question.index', compact('listInfos', 'categorys', 'word', 'searchId'));
+        $categories = $this->category->all();
+        $listInfos = $this->question->fetchQuestionForList($word, $searchId)->get();
+        return view('user.question.index', compact('listInfos', 'categories', 'word', 'searchId'));
     }
 
     /**
@@ -55,8 +54,8 @@ class QuestionController extends Controller
      */
     public function edit($questionId)
     {
-        $input = $this->question->find($questionId);
-        return view('user.question.edit', compact('input', 'questionId'));
+        $editInfo = $this->question->find($questionId);
+        return view('user.question.edit', compact('editInfo', 'questionId'));
     }
 
     /**
@@ -65,10 +64,10 @@ class QuestionController extends Controller
      */
     public function confirm(QuestionsRequest $request)
     {
-        $input = $request->all();
-        $input['user_id'] = Auth::id();
-        $categoryName = $this->category->find($input['tag_category_id'])->name;
-        return view('user.question.confirm', compact('input', 'categoryName'));
+        $confirmInfo = $request->all();
+        $confirmInfo['user_id'] = Auth::id();
+        $categoryName = $this->category->find($confirmInfo['tag_category_id'])->name;
+        return view('user.question.confirm', compact('confirmInfo', 'categoryName'));
     }
 
     /**
@@ -77,8 +76,8 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        $this->question->create($inputs);
+        $createInfo = $request->all();
+        $this->question->create($createInfo);
         return redirect()->route('question.index');
     }
 
@@ -89,8 +88,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $this->question->find($id)->fill($input)->save();
+        $updateInfo = $request->all();
+        $this->question->find($id)->fill($updateInfo)->save();
         return redirect()->route('question.index');
     }
 
@@ -106,6 +105,7 @@ class QuestionController extends Controller
                                       ->get();
         $categoryName = $this->question->fetchCategory($questionId)
                                        ->first();
+                                       dd($categoryName);
         return view('user.question.show', compact('info', 'user', 'categoryName', 'commentInfos'));
     }
 
@@ -115,9 +115,9 @@ class QuestionController extends Controller
      */
     public function commentCreate(CommentRequest $request)
     {
-        $input = $request->all();
-        $this->comment->create($input);
-        return redirect()->route('question.show', $input['question_id']);
+        $createInfo = $request->all();
+        $this->comment->create($createInfo);
+        return redirect()->route('question.show', $createInfo['question_id']);
     }
 
     /**
