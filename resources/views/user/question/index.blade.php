@@ -13,13 +13,16 @@
       <a class="btn" href="{{ route('question.mypage') }}">
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
-      {{ $errors->first('serach_word') }}
-      {{ $errors->first('category_id') }}
+      @if (!empty($errors->first('category_id')))
+      <div class="{{ !empty($errors->first('category_id')) ? 'has-error' : '' }}">
+        <span class="help-block">{{ $errors->first('category_id') }}</span>
+      </div>
+      @endif
     </div>
     <div class="category-wrap">
-      <button class="btn all" id="0">All</button>
-      @foreach ($categoryId as $id)
-        <button class="btn {{ $id->name }}" id="{{ $id->id }}">{{ $id->name }}</button>
+      <button class="btn all selected" id="0">All</button>
+      @foreach ($categorys as $category)
+        <button class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</button>
       @endforeach
       <input type="hidden" name="category_id" value="" id="category-val">
     </div>
@@ -40,7 +43,7 @@
         <tr class="row">
           <td class="col-xs-1"><img src="{{ $listInfo->avatar ? $listInfo->avatar : 'https://www.u-stat.net/images/site_img/pimg.png' }}" class="avatar-img"></td>
           <td class="col-xs-2">{{ $listInfo->name }}</td>
-          <td class="col-xs-6">{{ $listInfo->title }}</td>
+          <td class="col-xs-6">{{ mb_strimwidth($listInfo->title, 0, 15, '...', 'UTF-8') }}</td>
           <td class="col-xs-1"><span class="point-color">{{ $listInfo->count }}</span></td>
           <td class="col-xs-2">
             <a class="btn btn-success" href="{{ route('question.show', $listInfo->id) }}">
