@@ -122,9 +122,7 @@ class QuestionController extends Controller
     public function myPage()
     {
         $userId = Auth::id();
-        $questionInfos = $this->question
-                              ->fetchMyPage($userId)
-                              ->get();
+        $questionInfos = $this->question->fetchMyPage($userId)->get();
         return view('user.question.mypage', compact('questionInfos'));
     }
 
